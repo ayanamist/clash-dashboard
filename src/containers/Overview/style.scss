@@ -1,0 +1,48 @@
+@import '~@styles/variables';
+
+.traffic-card {
+    background-image: linear-gradient(123deg, $color-primary, $color-primary-dark);
+    padding: 0;
+    flex: 1;
+
+    .traffic-header {
+        flex-direction: row;
+        align-items: center;
+
+        .type-select {
+            height: 26px;
+            border-radius: 13px;
+            font-size: 14px;
+            color: $color-primary;
+            background-color: #fff;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .speed-info {
+            color: #fff;
+            align-items: center;
+
+            .speed-icon {
+                color: #fff;
+                margin-right: 4px;
+            }
+        }
+    }
+}
+
+#charts {
+    display: flex;
+
+    .line {
+        fill: none;
+        stroke: #fff;
+        stroke-width: 1px;
+    }
+
+    .area {
+        fill: #fff;
+        opacity: 0.2;
+    }
+}

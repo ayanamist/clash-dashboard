@@ -6,6 +6,7 @@ import { StreamReader } from './streamer'
 
 let instance: AxiosInstance
 let logsStreamReader = null
+let trafficStreamReader = null
 
 export interface Config {
     port: number
@@ -128,4 +129,14 @@ export async function getLogsStreamReader () {
     const logUrl = `http://${externalController.hostname}:${externalController.port}/logs?level=${config['log-level']}`
     logsStreamReader = new StreamReader({ url: logUrl, bufferLength: 200 })
     return logsStreamReader
+}
+
+export async function getTrafficStreamReader () {
+    if (trafficStreamReader) {
+        return trafficStreamReader
+    }
+    const externalController = await getExternalControllerConfig()
+    const trafficUrl = `http://${externalController.hostname}:${externalController.port}/traffic`
+    trafficStreamReader = new StreamReader({ url: trafficUrl, bufferLength: 50 })
+    return trafficStreamReader
 }

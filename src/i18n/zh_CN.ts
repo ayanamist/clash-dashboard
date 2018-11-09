@@ -1,4 +1,7 @@
 export default {
+    Overview: {
+        title: '总览'
+    },
     SideBar: {
         Proxies: '代理',
         Overview: '总览',

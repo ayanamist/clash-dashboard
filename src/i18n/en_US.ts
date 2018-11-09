@@ -1,4 +1,7 @@
 export default {
+    Overview: {
+        title: 'Overview'
+    },
     SideBar: {
         Proxies: 'Proxies',
         Overview: 'Overview',
