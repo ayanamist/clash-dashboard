@@ -154,7 +154,7 @@ class Overview extends React.Component<I18nProps, {}> {
         // format y value
         const yScale = d3.scaleLinear()
             .rangeRound([height, 0])
-            .domain([0, 200])
+            .domain([0, 0])
 
         const area = d3.area()
             .x((d, i) => xScale(now - (n - 1 - i) * duration))
@@ -166,6 +166,7 @@ class Overview extends React.Component<I18nProps, {}> {
             .x((d, i) => xScale(now - (n - 1 - i) * duration))
             .y(yScale)
             .curve(d3.curveBasis)
+        let lastMaxSpeed = 0
         const tick = () => {
             transition = transition
                 .each(() => {
@@ -187,23 +188,41 @@ class Overview extends React.Component<I18nProps, {}> {
                     const data = this.chartProps.sourceData.map(i => this.formatByType(i, type))
 
                     // set yScale by max speed
-                    yScale.domain([0, speed])
+                    yScale.domain([0, speed * 1.2])
+                    if (lastMaxSpeed !== speed) {
+                        lastMaxSpeed = speed
 
-                    // Redraw the line
-                    d3.select('.line')
-                        .data([data])
-                        .attr('d', line)
-                        .attr('transform', null)
+                        // Redraw the line
+                        d3.select('.line')
+                            .data([data])
+                            .transition(transition)
+                            .attr('d', line)
+                            .attr('transform', null)
+
+                        // Redraw the area.
+                        d3.select('.area')
+                            .data([data])
+                            .transition(transition)
+                            .attr('d', area)
+                            .attr('transform', null)
+
+                    } else {
+                        // Redraw the line
+                        d3.select('.line')
+                            .data([data])
+                            .attr('d', line)
+                            .attr('transform', null)
+
+                        // Redraw the area.
+                        d3.select('.area')
+                            .data([data])
+                            .attr('d', area)
+                            .attr('transform', null)
+                    }
                     // slide the line left
                     d3.select('.line')
                         .transition(transition)
                         .attr('transform', `translate(${xScale(now - (n - 1) * duration)})`)
-
-                    // Redraw the area.
-                    d3.select('.area')
-                        .data([data])
-                        .attr('d', area)
-                        .attr('transform', null)
 
                     // slide the area left
                     d3.select('.area')
