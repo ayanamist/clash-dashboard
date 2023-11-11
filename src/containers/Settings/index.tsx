@@ -3,11 +3,13 @@ import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 import { useEffect, useMemo } from 'react'
 
 import { Header, Card, Switch, ButtonSelect, type ButtonSelectOptions, Input, Select } from '@components'
+import { success, error, Button } from '@components'
 import { type Lang } from '@i18n'
 import { useObject } from '@lib/hook'
 import { jsBridge } from '@lib/jsBridge'
 import { useI18n, useClashXData, useGeneral, useVersion, useClient, identityAtom, hostSelectIdxStorageAtom, hostsStorageAtom, useAPIInfo } from '@stores'
 import './style.scss'
+import axios from "axios";
 
 const languageOptions: ButtonSelectOptions[] = [{ label: '中文', value: 'zh_CN' }, { label: 'English', value: 'en_US' }]
 
@@ -71,6 +73,27 @@ export default function Settings () {
     async function handleAllowLanChange (state: boolean) {
         await client.updateConfig({ 'allow-lan': state })
         await fetchGeneral()
+    }
+
+    async function handleReloadConfig () {
+        try {
+            const resp = await client.reloadConfig()
+            if (resp.status === 204) {
+                success(t('messages.reloadOk') as string)
+            } else {
+                error(`${t('messages.reloadErr')} ${resp.data}`)
+            }
+            await fetchGeneral()
+        } catch (e) {
+            let msg = `${e}`
+            if (axios.isAxiosError(e)) {
+                msg = e.response?.data?.message
+                if (!msg) {
+                    msg = e.response?.data
+                }
+            }
+            error(`${t('messages.reloadErr')} ${msg}`)
+        }
     }
 
     const {
@@ -198,7 +221,9 @@ export default function Settings () {
                             { controllers }
                         </div>
                     </div>
-                    <div className="w-1/2 px-8"></div>
+                    <div className="w-full flex md:w-1/2 items-center justify-between px-8 py-3">
+                        <Button onClick={handleReloadConfig}>{t('labels.reloadConfig')}</Button>
+                    </div>
                 </div>
             </Card>
             {/* <Card className="clash-version hidden">

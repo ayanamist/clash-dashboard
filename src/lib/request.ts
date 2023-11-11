@@ -115,6 +115,10 @@ export class Client {
         return await this.axiosClient.patch<void>('configs', config)
     }
 
+    async reloadConfig () {
+        return await this.axiosClient.put('configs', {})
+    }
+
     async getRules () {
         return await this.axiosClient.get<Rules>('rules')
     }

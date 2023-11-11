@@ -20,6 +20,7 @@ const EN = {
             httpProxyPort: 'HTTP proxy port',
             mixedProxyPort: 'Mixed proxy port',
             externalController: 'External controller',
+            reloadConfig: 'Reload config',
         },
         values: {
             cn: '中文',
@@ -40,6 +41,10 @@ const EN = {
             addText: 'Add',
             deleteText: 'Delete',
             deleteErrorText: 'Host not found',
+        },
+        messages: {
+            reloadOk: 'Reload OK',
+            reloadErr: 'Error:',
         },
     },
     Logs: {

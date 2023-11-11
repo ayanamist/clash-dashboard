@@ -1,7 +1,6 @@
 import classnames from 'classnames'
-import { useLayoutEffect } from 'react'
-import { unmountComponentAtNode } from 'react-dom'
-import { createRoot } from 'react-dom/client'
+import { useEffect } from 'react'
+import { unmountComponentAtNode, render } from 'react-dom'
 
 import { Icon } from '@components'
 import { noop } from '@lib/helper'
@@ -45,12 +44,13 @@ export function Message (props: MessageProps) {
 
     const { visible, show, hide } = useVisible()
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         window.setTimeout(() => show(), 0)
 
         const id = window.setTimeout(() => {
             hide()
             onClose()
+            removeComponent()
         }, duration)
         return () => window.clearTimeout(id)
     }, [duration, hide, onClose, show])
@@ -90,7 +90,7 @@ export function showMessage (args: ArgsProps) {
         onClose,
     }
 
-    createRoot(container).render(<Message {...props} />)
+    render(<Message {...props} />, container)
 }
 
 export const info = (

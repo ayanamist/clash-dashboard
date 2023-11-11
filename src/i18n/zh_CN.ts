@@ -20,6 +20,7 @@ const CN = {
             httpProxyPort: 'HTTP 代理端口',
             mixedProxyPort: '混合代理端口',
             externalController: '外部控制设置',
+            reloadConfig: '重新加载配置',
         },
         values: {
             cn: '中文',
@@ -40,6 +41,10 @@ const CN = {
             addText: '添 加',
             deleteText: '删 除',
             deleteErrorText: '没有找到该 Host',
+        },
+        messages: {
+            reloadOk: '重新加载配置成功',
+            reloadErr: '错误：',
         },
     },
     Logs: {
