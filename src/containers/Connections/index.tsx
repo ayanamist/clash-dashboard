@@ -19,7 +19,6 @@ import './style.scss'
 const Columns = {
     Host: 'host',
     Network: 'network',
-    Process: 'process',
     Type: 'type',
     Chains: 'chains',
     Rule: 'rule',
@@ -30,7 +29,7 @@ const Columns = {
     Time: 'time',
 } as const
 
-const shouldCenter = new Set<string>([Columns.Network, Columns.Type, Columns.Speed, Columns.Upload, Columns.Download, Columns.SourceIP, Columns.Time, Columns.Process])
+const shouldCenter = new Set<string>([Columns.Network, Columns.Type, Columns.Speed, Columns.Upload, Columns.Download, Columns.SourceIP, Columns.Time])
 
 function formatSpeed (upload: number, download: number) {
     switch (true) {
@@ -81,7 +80,6 @@ export default function Connections () {
             sourceIP: c.metadata.sourceIP,
             type: c.metadata.type,
             network: c.metadata.network.toUpperCase(),
-            process: c.metadata.processPath,
             speed: { upload: c.uploadSpeed, download: c.downloadSpeed },
             completed: !!c.completed,
             original: c,
@@ -104,7 +102,6 @@ export default function Connections () {
             columnHelper.accessor(Columns.Type, { minSize: 100, size: 100, header: t(`columns.${Columns.Type}`) }),
             columnHelper.accessor(Columns.Chains, { minSize: 200, size: 200, header: t(`columns.${Columns.Chains}`) }),
             columnHelper.accessor(Columns.Rule, { minSize: 140, size: 140, header: t(`columns.${Columns.Rule}`) }),
-            columnHelper.accessor(Columns.Process, { minSize: 100, size: 100, header: t(`columns.${Columns.Process}`), cell: cell => cell.getValue() ? basePath(cell.getValue()!) : '-' }),
             columnHelper.accessor(
                 row => [row.speed.upload, row.speed.download],
                 {
@@ -295,7 +292,7 @@ export default function Connections () {
                 </div>
             </Card>
             <Modal title={t('closeAll.title')} show={visible} onClose={hide} onOk={handleCloseConnections}>{t('closeAll.content')}</Modal>
-            <Drawer containerRef={cardRef} bodyClassName="flex flex-col" visible={drawerState.visible} width={450}>
+            <Drawer containerRef={cardRef} bodyClassName="flex flex-col" visible={drawerState.visible} max-width={450}>
                 <div className="h-8 flex items-center justify-between">
                     <span className="pl-3 font-bold">{t('info.title')}</span>
                     <Icon type="close" size={16} className="cursor-pointer" onClick={() => setDrawerState('visible', false)} />

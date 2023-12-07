@@ -168,7 +168,7 @@ export function useProxy () {
         global.name = 'GLOBAL'
 
         const policyGroup = new Set(['Selector', 'URLTest', 'Fallback', 'LoadBalance'])
-        const unUsedProxy = new Set(['DIRECT', 'REJECT', 'GLOBAL'])
+        const unUsedProxy = new Set(['DIRECT', 'REJECT', 'PASS', 'GLOBAL'])
         const proxies = global.all
             .filter(key => !unUsedProxy.has(key))
             .map(key => ({ ...allProxies.data.proxies[key], name: key }))

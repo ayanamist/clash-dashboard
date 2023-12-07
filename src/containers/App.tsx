@@ -25,7 +25,7 @@ export default function App () {
         { path: '/proxies', name: 'Proxies', element: <Proxies /> },
         { path: '/logs', name: 'Logs', element: <Logs /> },
         { path: '/rules', name: 'Rules', element: <Rules />, noMobile: true },
-        { path: '/connections', name: 'Connections', element: <Connections />, noMobile: true },
+        { path: '/connections', name: 'Connections', element: <Connections /> },
         { path: '/settings', name: 'Settings', element: <Settings /> },
     ]
 

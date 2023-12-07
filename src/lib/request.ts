@@ -168,7 +168,7 @@ export class Client {
         return await this.axiosClient.get<{ delay: number }>(`proxies/${encodeURIComponent(name)}/delay`, {
             params: {
                 timeout: 5000,
-                url: localStorage.getItem("probeUrl") || 'https://www.google.com/generate_204',
+                url: localStorage.getItem("probeUrl") || 'https://i.ytimg.com/generate_204',
             },
         })
     }
