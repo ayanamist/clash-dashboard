@@ -105,6 +105,7 @@ const CN = {
             opening: '连接中',
             closed: '已关闭',
             closeConnection: '关闭连接',
+            time: '连接开始',
         },
     },
     Proxies: {

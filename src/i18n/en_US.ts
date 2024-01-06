@@ -105,6 +105,7 @@ const EN = {
             opening: 'Open',
             closed: 'Closed',
             closeConnection: 'Close',
+            time: 'Start From',
         },
     },
     Proxies: {

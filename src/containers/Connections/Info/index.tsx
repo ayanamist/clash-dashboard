@@ -99,6 +99,17 @@ export function ConnectionInfo (props: ConnectionsInfoProps) {
                         : <span className="text-red">{t('info.closed')}</span>
                 }</span>
             </div>
+            <div className="my-3 flex">
+                <span className="w-20 font-bold">{t('info.time')}</span>
+                <span className="font-mono">{
+                    props.connection.start
+                        ? new Intl.DateTimeFormat('zh-Hans', {
+                            dateStyle: 'medium',
+                            timeStyle: 'medium'
+                          }).format(new Date(props.connection.start))
+                        : ''
+                }</span>
+            </div>
         </div>
     )
 }
